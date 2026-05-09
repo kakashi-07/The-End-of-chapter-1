@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>For You, Always 💌</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #FDF8EF;
+  --parchment: #F0E6C8;
+  --rose: #C97B8A;
+  --rose-light: #EEC4CE;
+  --rose-dark: #8B3A52;
+  --gold: #C8973E;
+  --gold-light: #E8C97A;
+  --text-dark: #3D2B1F;
+  --text-mid: #6B4C3B;
+  --text-soft: #9B7B6A;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--cream);
+  font-family: 'Lora', serif;
+  color: var(--text-dark);
+  overflow-x: hidden;
+  min-height: 100vh;
+  cursor: default;
+}
+
+/* ── FLOATING HEARTS ── */
+.heart-float {
+  position: fixed;
+  pointer-events: none;
+  font-size: 1rem;
+  opacity: 0;
+  z-index: 0;
+  animation: riseHeart linear infinite;
+  will-change: transform;
+}
+@keyframes riseHeart {
+  0%   { opacity: 0;    transform: translateY(0)   rotate(0deg) scale(0.6); }
+  10%  { opacity: 0.18; }
+  90%  { opacity: 0.12; }
+  100% { opacity: 0;    transform: translateY(-110vh) rotate(360deg) scale(1); }
+}
+
+/* ── SECTIONS ── */
+section {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 24px 80px;
+  overflow: hidden;
+}
+
+/* ── SECTION TITLES ── */
+.section-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(2rem, 7vw, 3rem);
+  color: var(--rose-dark);
+  text-align: center;
+  margin-bottom: 44px;
+  letter-spacing: 0.5px;
+}
+.section-title::after {
+  content: '';
+  display: block;
+  width: 72px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 12px auto 0;
+}
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   SECTION 1 – INTRO / ENVELOPE
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+#intro {
+  background: radial-gradient(ellipse at 30% 20%, #F9E8E8 0%, #FDF8EF 45%, #F0E8F5 100%);
+}
+.intro-subtitle {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(1.2rem, 4vw, 1.6rem);
+  color: var(--rose);
+  text-align: center;
+  margin-bottom: 48px;
+  opacity: 0;
+  animation: fadeUp 1.2s ease 0.6s forwards;
+}
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(16px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* Envelope */
+.envelope-wrap {
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  opacity: 0;
+  animation: fadeUp 1.2s ease 1.1s forwards;
+}
+.envelope-svg-wrap {
+  filter: drop-shadow(0 12px 32px rgba(139,58,82,0.28));
+  transition: transform 0.35s cubic-bezier(.34,1.56,.64,1);
+}
+.envelope-wrap:hover .envelope-svg-wrap {
+  transform: translateY(-6px) scale(1.03);
+}
+.envelope-svg-wrap svg { display:block; }
+
+.wax-seal-btn {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -44%);
+  width: 60px; height: 60px;
+  background: radial-gradient(circle at 35% 35%, #E05070, #8B1A2E);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem;
+  box-shadow: 0 3px 10px rgba(139,26,46,0.55), inset 0 -2px 5px rgba(0,0,0,0.25);
+  border: 2px solid rgba(255,210,210,0.5);
+  animation: sealPulse 2.4s ease-in-out infinite;
+  z-index: 5;
+}
+@keyframes sealPulse {
+  0%,100% { box-shadow: 0 3px 10px rgba(139,26,46,0.55), 0 0 0 0 rgba(212,56,78,0.5); }
+  50%      { box-shadow: 0 3px 10px rgba(139,26,46,0.55), 0 0 0 12px rgba(212,56,78,0); }
+}
+
+.tap-hint {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 0.88rem;
+  color: var(--rose);
+  letter-spacing: 0.5px;
+  opacity: 0.8;
+}
+
+/* ── SCRATCH CARD ── */
+.scratch-reveal {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  animation: popIn 0.55s cubic-bezier(.34,1.56,.64,1) forwards;
+}
+@keyframes popIn {
+  from { opacity:0; transform:scale(0.82) translateY(24px); }
+  to   { opacity:1; transform:scale(1) translateY(0); }
+}
+.scratch-frame {
+  background: linear-gradient(145deg, #FDF0F5, #F5E8F0);
+  border: 1.5px solid var(--rose-light);
+  border-radius: 24px;
+  padding: 28px 24px;
+  text-align: center;
+  box-shadow: 0 16px 48px rgba(139,58,82,0.22);
+  max-width: 340px;
+  width: 100%;
+}
+.scratch-label {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.4rem;
+  color: var(--rose-dark);
+  margin-bottom: 18px;
+}
+.scratch-card {
+  position: relative;
+  width: 280px; height: 280px;
+  margin: 0 auto;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.18);
+}
+.scratch-card img {
+  position: absolute; top:0; left:0;
+  width:100%; height:100%;
+  object-fit: cover;
+  z-index: 1;
+  display: block;
+  border-radius: 18px;
+}
+.scratch-card canvas {
+  position: absolute; top:0; left:0;
+  width:100%; height:100%;
+  z-index: 2;
+  cursor: crosshair;
+  touch-action: none;
+  border-radius: 18px;
+}
+.scratch-hint {
+  margin-top: 14px;
+  font-size: 0.82rem;
+  color: var(--rose);
+  font-style: italic;
+}
+.scratch-revealed-msg {
+  display: none;
+  margin-top: 14px;
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.2rem;
+  color: var(--rose-dark);
+  animation: fadeUp 0.6s ease forwards;
+}
+
+/* Scroll indicator */
+.scroll-cue {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: var(--rose);
+  font-size: 0.75rem;
+  font-style: italic;
+  opacity: 0.65;
+  animation: bobDown 2s ease-in-out infinite;
+}
+@keyframes bobDown {
+  0%,100% { transform: translateX(-50%) translateY(0); }
+  50%      { transform: translateX(-50%) translateY(7px); }
+}
+.scroll-cue .arrow { font-size: 1rem; }
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   SECTION 2 – MINI MEMORIES
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+#memories {
+  background: linear-gradient(180deg, #EDD8E4 0%, #FDF8EF 100%);
+}
+.polaroid-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+  justify-content: center;
+  max-width: 860px;
+}
+.polaroid {
+  background: #FFFFFF;
+  padding: 12px 12px 52px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.13), 0 1px 4px rgba(0,0,0,0.07);
+  cursor: pointer;
+  position: relative;
+  transition: box-shadow 0.35s ease, z-index 0s;
+  z-index: 1;
+}
+.polaroid:nth-child(1) { transform: rotate(-3.5deg); }
+.polaroid:nth-child(2) { transform: rotate(2.2deg); }
+.polaroid:nth-child(3) { transform: rotate(-1.8deg); }
+.polaroid:nth-child(4) { transform: rotate(3.8deg); }
+.polaroid:nth-child(5) { transform: rotate(-2.5deg); }
+.polaroid:hover {
+  transform: rotate(0deg) scale(1.09) translateY(-10px) !important;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.22) !important;
+  z-index: 20;
+}
+.polaroid-img-wrap {
+  width: 175px; height: 175px;
+  overflow: hidden;
+  background: #f0e8e8;
+}
+.polaroid-img-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+.polaroid:hover .polaroid-img-wrap img { transform: scale(1.07); }
+.polaroid-caption {
+  position: absolute;
+  bottom: 14px; left: 0; right: 0;
+  font-family: 'Dancing Script', cursive;
+  font-size: 1rem;
+  color: var(--text-mid);
+  text-align: center;
+}
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   SECTION 3 – SONG PLAYER
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+#song {
+  background: linear-gradient(160deg, #FDF8EF 0%, #F0E6D8 100%);
+}
+.player-card {
+  background: linear-gradient(145deg, #2E1C12, #4A2E1E);
+  border-radius: 28px;
+  padding: 44px 36px;
+  text-align: center;
+  max-width: 360px;
+  width: 100%;
+  box-shadow: 0 24px 72px rgba(46,28,18,0.48);
+  position: relative;
+  overflow: hidden;
+}
+.player-card::before {
+  content: '';
+  position: absolute;
+  top: -60%; left: -40%;
+  width: 180%; height: 180%;
+  background: radial-gradient(ellipse at 55% 45%, rgba(200,151,62,0.12) 0%, transparent 65%);
+  pointer-events: none;
+}
+.disc-outer {
+  width: 130px; height: 130px;
+  margin: 0 auto 28px;
+  position: relative;
+}
+.disc {
+  width: 130px; height: 130px;
+  background: conic-gradient(from 0deg, #1A0E08, #2A1810, #1A0E08, #2A1810, #1A0E08);
+  border-radius: 50%;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.6);
+  position: relative;
+}
+.disc.spinning { animation: spinDisc 3s linear infinite; }
+@keyframes spinDisc {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.disc::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  width: 30px; height: 30px;
+  background: radial-gradient(circle at 35% 35%, var(--gold-light), var(--gold));
+  border-radius: 50%;
+  z-index: 2;
+  box-shadow: 0 0 8px rgba(200,151,62,0.5);
+}
+.disc::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  width: 90px; height: 90px;
+  border: 1.5px solid rgba(200,151,62,0.15);
+  border-radius: 50%;
+}
+.song-title {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: #E8D5B7;
+  font-size: 1.15rem;
+  margin-bottom: 4px;
+}
+.song-sub {
+  font-size: 0.78rem;
+  color: rgba(200,151,62,0.75);
+  font-style: italic;
+  margin-bottom: 28px;
+}
+.play-button {
+  width: 68px; height: 68px;
+  background: linear-gradient(145deg, var(--gold-light), var(--gold));
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 24px;
+  font-size: 1.5rem;
+  color: #2E1C12;
+  box-shadow: 0 6px 24px rgba(200,151,62,0.45);
+  transition: transform 0.2s cubic-bezier(.34,1.56,.64,1), box-shadow 0.2s;
+  line-height: 1;
+}
+.play-button:hover {
+  transform: scale(1.12);
+  box-shadow: 0 10px 36px rgba(200,151,62,0.65);
+}
+.play-button:active { transform: scale(0.94); }
+.progress-track {
+  height: 3px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  width: 0%;
+  transition: width 0.5s linear;
+}
+.time-display {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-size: 0.7rem;
+  color: rgba(232,213,183,0.45);
+}
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   SECTION 4 – THINGS I LOVE
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+#love {
+  background: linear-gradient(180deg, #F0E6D8 0%, #EDD8E4 100%);
+}
+.love-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  max-width: 500px;
+  width: 100%;
+}
+.love-item {
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding: 18px 22px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  box-shadow: 0 3px 14px rgba(139,58,82,0.07);
+  border-left: 3.5px solid var(--rose-light);
+  transform: translateX(-24px);
+  opacity: 0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.love-item.visible {
+  animation: slideIn 0.55s cubic-bezier(.22,1,.36,1) forwards;
+}
+@keyframes slideIn {
+  to { opacity:1; transform:translateX(0); }
+}
+.love-item:hover {
+  transform: translateX(5px) !important;
+  box-shadow: 0 6px 22px rgba(139,58,82,0.15) !important;
+}
+.love-num {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.9rem;
+  color: var(--rose-light);
+  line-height: 1;
+  min-width: 40px;
+  flex-shrink: 0;
+}
+.love-text {
+  font-size: 0.93rem;
+  line-height: 1.6;
+  color: var(--text-dark);
+  padding-top: 3px;
+}
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   SECTION 5 – FINAL CARD
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+#final {
+  background: radial-gradient(ellipse at 70% 80%, #F9E8E8 0%, #FDF8EF 55%, #F0E8F5 100%);
+}
+.final-hint {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  color: var(--text-soft);
+  font-size: 0.88rem;
+  margin-bottom: 36px;
+  text-align: center;
+}
+.flip-card-outer {
+  perspective: 1200px;
+  cursor: pointer;
+}
+.flip-card {
+  width: 260px; height: 360px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.85s cubic-bezier(0.4,0,0.2,1);
+}
+.flip-card.flipped { transform: rotateY(180deg); }
+.card-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 22px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.card-front-face {
+  background: linear-gradient(145deg, #8B3A52, #C97B8A);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  box-shadow: 0 20px 60px rgba(139,58,82,0.45);
+  border: 1.5px solid rgba(255,255,255,0.18);
+}
+.card-heart-icon {
+  font-size: 4.5rem;
+  animation: heartbeat 1.8s ease-in-out infinite;
+  display: block;
+}
+@keyframes heartbeat {
+  0%,100% { transform: scale(1); }
+  45%      { transform: scale(1.18); }
+  65%      { transform: scale(0.95); }
+}
+.card-front-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.6rem;
+  color: white;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.card-front-cta {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.65);
+  font-style: italic;
+  letter-spacing: 0.5px;
+}
+.card-back-face {
+  background: linear-gradient(145deg, #FDFAF5, #F5ECF0);
+  transform: rotateY(180deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 20px 60px rgba(139,58,82,0.3);
+  border: 1.5px solid var(--rose-light);
+}
+.card-back-inner {
+  text-align: center;
+  padding: 24px;
+}
+.card-back-inner p {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.15rem;
+  color: var(--rose-dark);
+  line-height: 1.7;
+}
+
+/* ── LETTER OVERLAY ── */
+.letter-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(46,28,18,0.82);
+  z-index: 200;
+  overflow-y: auto;
+  padding: 24px 16px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  align-items: flex-start;
+  justify-content: center;
+}
+.letter-overlay.open {
+  display: flex;
+  animation: overlayIn 0.4s ease;
+}
+@keyframes overlayIn {
+  from { opacity:0; }
+  to   { opacity:1; }
+}
+.letter-paper {
+  background: #FDFAF3;
+  max-width: 620px;
+  width: 100%;
+  padding: 56px 44px 48px;
+  border-radius: 4px;
+  box-shadow: 0 30px 90px rgba(0,0,0,0.45);
+  position: relative;
+  margin: 40px auto;
+  background-image: repeating-linear-gradient(
+    transparent, transparent 31px,
+    rgba(200,180,150,0.22) 31px, rgba(200,180,150,0.22) 32px
+  );
+  border-left: 3px solid rgba(200,151,62,0.35);
+  animation: paperSlide 0.55s cubic-bezier(.22,1,.36,1);
+}
+@keyframes paperSlide {
+  from { opacity:0; transform:translateY(28px) scale(0.96); }
+  to   { opacity:1; transform:translateY(0)   scale(1); }
+}
+.letter-paper::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--gold-light), var(--rose-light), var(--gold-light));
+  border-radius: 4px 4px 0 0;
+}
+.letter-close-btn {
+  position: absolute;
+  top: 14px; right: 16px;
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: var(--text-soft);
+  opacity: 0.55;
+  transition: opacity 0.2s, transform 0.2s;
+  line-height: 1;
+}
+.letter-close-btn:hover { opacity: 1; transform: scale(1.15); }
+.letter-dear {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.5rem;
+  color: var(--rose-dark);
+  margin-bottom: 24px;
+}
+.letter-body {
+  font-family: 'Lora', serif;
+  font-size: 0.94rem;
+  line-height: 2;
+  color: var(--text-dark);
+  white-space: pre-wrap;
+}
+.letter-sign {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.35rem;
+  color: var(--rose-dark);
+  margin-top: 32px;
+  text-align: right;
+  display: block;
+}
+
+/* ── DECORATIVE DIVIDERS ── */
+.ornament {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0 auto 44px;
+  width: 100%;
+  max-width: 380px;
+}
+.ornament-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--rose-light), transparent);
+}
+.ornament-icon {
+  color: var(--rose);
+  font-size: 1rem;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 420px) {
+  .letter-paper { padding: 44px 22px 40px; }
+  .player-card  { padding: 36px 24px; }
+  .polaroid-img-wrap { width: 150px; height: 150px; }
+  .polaroid { padding: 10px 10px 46px; }
+}
+</style>
+</head>
+<body>
+
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+     SECTION 1 — LETTER + SCRATCH CARD
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<section id="intro">
+
+  <p class="intro-subtitle">Something just for you… ✨</p>
+
+  <!-- CLOSED ENVELOPE -->
+  <div class="envelope-wrap" id="envelopeWrap" onclick="openEnvelope()" role="button" aria-label="Open the letter">
+    <div class="envelope-svg-wrap">
+      <svg width="300" height="210" viewBox="0 0 300 210" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Shadow -->
+        <ellipse cx="150" cy="205" rx="130" ry="8" fill="rgba(139,58,82,0.15)"/>
+        <!-- Body -->
+        <rect x="4" y="60" width="292" height="145" rx="8" fill="#EAD9BC" stroke="#C4A87A" stroke-width="1.2"/>
+        <!-- Left fold -->
+        <polygon points="4,60 4,205 155,132" fill="#D6C0A0" opacity="0.55"/>
+        <!-- Right fold -->
+        <polygon points="296,60 296,205 145,132" fill="#D6C0A0" opacity="0.55"/>
+        <!-- Bottom fold -->
+        <polygon points="4,205 296,205 150,132" fill="#DECCAC" opacity="0.7"/>
+        <!-- Top flap open -->
+        <polygon points="4,60 296,60 150,128" fill="#C4A87A" opacity="0.5"/>
+        <!-- Fold line -->
+        <line x1="4" y1="60" x2="296" y2="60" stroke="#B89060" stroke-width="1" opacity="0.45" stroke-dasharray="4 3"/>
+        <!-- Decorative corners -->
+        <circle cx="20" cy="76" r="4" fill="rgba(200,151,62,0.3)"/>
+        <circle cx="280" cy="76" r="4" fill="rgba(200,151,62,0.3)"/>
+        <circle cx="20" cy="194" r="4" fill="rgba(200,151,62,0.3)"/>
+        <circle cx="280" cy="194" r="4" fill="rgba(200,151,62,0.3)"/>
+      </svg>
+    </div>
+    <div class="wax-seal-btn">💌</div>
+    <p class="tap-hint">✨ tap the seal to open ✨</p>
+  </div>
+
+
+  <!-- SCRATCH CARD (hidden until envelope opened) -->
+  <div class="scratch-reveal" id="scratchReveal">
+    <div class="scratch-frame">
+      <p class="scratch-label">🌸 Scratch to reveal something special</p>
+      <div class="scratch-card" id="scratchCard">
+        <img src="https://www.dropbox.com/scl/fi/9m1uhkrypfjt8a6lh5h2o/1778344794939-v5yve6m.jpg?rlkey=22vb6wk36t9r8348kx783ufux&st=hwmfan6n&dl=1" alt="A special memory" id="scratchImg" referrerpolicy="no-referrer">
+        <canvas id="scratchCanvas"></canvas>
+      </div>
+      <p class="scratch-hint" id="scratchHint">🫶 use your finger to scratch the card</p>
+      <p class="scratch-revealed-msg" id="revealedMsg">There you are 🥹💕</p>
+    </div>
+  </div>
+
+  <div class="scroll-cue" id="scrollCue" style="display:none">
+    <span>scroll to see more</span>
+    <span class="arrow">↓</span>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     SECTION 2 — MINI MEMORIES
+══════════════════════════════════ -->
+<section id="memories">
+  <h2 class="section-title">📸 Mini Memories</h2>
+  <div class="ornament">
+    <div class="ornament-line"></div>
+    <span class="ornament-icon">✦</span>
+    <div class="ornament-line"></div>
+  </div>
+
+  <div class="polaroid-grid">
+    <div class="polaroid">
+      <div class="polaroid-img-wrap">
+        <img src="https://www.dropbox.com/scl/fi/nduksjmlv555povqxui4a/1778344803235-vcwftgd.jpg?rlkey=zvscoso3ik7hm4apiqi2b559r&st=kltcw3mi&dl=1" alt="Memory 1" loading="lazy" referrerpolicy="no-referrer">
+      </div>
+      <p class="polaroid-caption">always ✨</p>
+    </div>
+    <div class="polaroid">
+      <div class="polaroid-img-wrap">
+        <img src="https://www.dropbox.com/scl/fi/xmpqo5cl5de2yvw73dc59/1778339096424-w5867ct.jpg?rlkey=u1gayf0j9at36ug40545parwv&st=tqx0ryg2&dl=1" alt="Memory 2" loading="lazy" referrerpolicy="no-referrer">
+      </div>
+      <p class="polaroid-caption">us 🌸</p>
+    </div>
+    <div class="polaroid">
+      <div class="polaroid-img-wrap">
+        <img src="https://www.dropbox.com/scl/fi/7lq3qyrct6owtylp0nbb6/1778339077957-prm841h.jpg?rlkey=0o7vvgfluu25n1vyhpo3ou31o&st=12hepo1z&dl=1" alt="Memory 3" loading="lazy" referrerpolicy="no-referrer">
+      </div>
+      <p class="polaroid-caption">these days 💛</p>
+    </div>
+    <div class="polaroid">
+      <div class="polaroid-img-wrap">
+        <img src="https://www.dropbox.com/scl/fi/r7r0nenct6h5n9h4v4ftd/1778339000939-s034ni3.jpg?rlkey=ejuohgxsbsudh7f6wzulney5i&st=6csaugch&dl=1" alt="Memory 4" loading="lazy" referrerpolicy="no-referrer">
+      </div>
+      <p class="polaroid-caption">forever 🌷</p>
+    </div>
+    <div class="polaroid">
+      <div class="polaroid-img-wrap">
+        <img src="https://www.dropbox.com/scl/fi/qhhouf73gbdavnz3psjls/1778338886135-pgkjful.jpg?rlkey=0902lwzc5g5cpsnqjxydmxfou&st=fcupuobj&dl=1" alt="Memory 5" loading="lazy" referrerpolicy="no-referrer">
+      </div>
+      <p class="polaroid-caption">my favourite 💌</p>
+    </div>
+  </div>
+</section>
+
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+     SECTION 3 — SONG PLAYER
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<section id="song">
+  <h2 class="section-title">🎵 A Song for You</h2>
+  <div class="ornament">
+    <div class="ornament-line"></div>
+    <span class="ornament-icon">♪</span>
+    <div class="ornament-line"></div>
+  </div>
+
+  <div class="player-card">
+    <div class="disc-outer">
+      <div class="disc" id="musicDisc"></div>
+    </div>
+    <p class="song-title">Aakasha Deepavu Neenu</p>
+    <p class="song-sub">— a song that feels like you 🌙</p>
+    <button class="play-button" id="playBtn" onclick="togglePlay()" aria-label="Play or pause song">
+      <span id="playIcon">▶</span>
+    </button>
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <div class="time-display">
+      <span id="timeCurrent">0:00</span>
+      <span id="timeDuration">0:00</span>
+    </div>
+  </div>
+  <audio id="audio" preload="none">
+    <source src="https://www.dropbox.com/scl/fi/1jf2qllqmlyw0r291db5y/Aakasha-Deepavu-Neenu-Video-Song-Pavana-Ganga-Srinath-Aarathi-Rajan-Nagendra-SGV-Sandalwood-Songs.mp3?rlkey=7ou9mrxjq88j270r28skqpfib&st=7tv2nycc&dl=1" type="audio/mpeg">
+  </audio>
+</section>
+
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+     SECTION 4 — THINGS I LOVE
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<section id="love">
+  <h2 class="section-title">💖 Things I Love About You</h2>
+  <div class="ornament">
+    <div class="ornament-line"></div>
+    <span class="ornament-icon">❤</span>
+    <div class="ornament-line"></div>
+  </div>
+
+  <div class="love-grid" id="loveGrid">
+    <div class="love-item">
+      <span class="love-num">01</span>
+      <p class="love-text">Your Presence — just having you around makes everything feel lighter ✨</p>
+    </div>
+    <div class="love-item">
+      <span class="love-num">02</span>
+      <p class="love-text">Dhaant Kaana 😹 — the way you scold, honestly iconic</p>
+    </div>
+    <div class="love-item">
+      <span class="love-num">03</span>
+      <p class="love-text">The way you Ragebait 😒 — you're lowkey a professional at this</p>
+    </div>
+    <div class="love-item">
+      <span class="love-num">04</span>
+      <p class="love-text">The Love you have towards your Family — it's genuinely beautiful to witness</p>
+    </div>
+    <div class="love-item">
+      <span class="love-num">05</span>
+      <p class="love-text">The way you make my Bday special 😅 — I'll never forget it, ever</p>
+    </div>
+    <div class="love-item">
+      <span class="love-num">06</span>
+      <p class="love-text">The Inner Child of yours that exists around me — it's the most precious thing</p>
+    </div>
+    <div class="love-item">
+      <span class="love-num">07</span>
+      <p class="love-text">Your Eyes and Open Hairs 😅 — breathtaking, genuinely</p>
+    </div>
+    <div class="love-item">
+      <span class="love-num">08</span>
+      <p class="love-text">Your Maturity Mindset — you think in ways that genuinely amaze me</p>
+    </div>
+    <div class="love-item">
+      <span class="love-num">09</span>
+      <p class="love-text">There's alot… like complete. Not just a single thing 🌸</p>
+    </div>
+  </div>
+</section>
+
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+     SECTION 5 — FINAL CARD
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<section id="final">
+  <h2 class="section-title">💌 One Last Thing</h2>
+  <p class="final-hint">Something I needed you to know…</p>
+
+  <div class="flip-card-outer" onclick="flipCard()" role="button" aria-label="Open final letter">
+    <div class="flip-card" id="flipCard">
+      <div class="card-face card-front-face">
+        <span class="card-heart-icon">💌</span>
+        <p class="card-front-title">A Letter for You</p>
+        <p class="card-front-cta">tap to open ✨</p>
+      </div>
+      <div class="card-face card-back-face">
+        <div class="card-back-inner">
+          <p>From the heart<br>with love 💕<br><br>tap again to read ✨</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+     LETTER OVERLAY
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<div class="letter-overlay" id="letterOverlay">
+  <div class="letter-paper">
+    <button class="letter-close-btn" onclick="closeLetter()" aria-label="Close letter">✕</button>
+    <p class="letter-dear">My dearest Nishumaaa,</p>
+    <div class="letter-body">There are some people who enter our lives quietly… and somehow end up changing the entire meaning of it.
+
+You were that person for me.
+
+And now, as college slowly comes to an end, reality feels strange. The classrooms, the roads, the random moments, the laughter, the silences, the memories we never realized were becoming memories — everything feels heavier knowing that one day, all of this may simply become "the past."
+
+Maybe life will take you far away, maybe even to London, into a completely different world with different people, different skies, and a different life waiting for you.
+
+But before time takes us wherever it wants to, there is something I need you to know.
+
+Thank you.
+
+Thank you for every single thing you gave me without even realizing it.
+For the days we spent together.
+For the comfort in your presence.
+For the endless memories that still replay in my mind at random moments.
+For the vibe, the conversations, the smiles, the chaos, the peace — all of it.
+And most importantly… thank you for the man I became after knowing you.
+
+Some people teach lessons.
+Some people leave memories.
+But very few people change a soul gently enough that it never becomes the same again.
+
+You did that to me.
+
+No matter where life takes you in the future, a part of me will always remain grateful that I got the chance to know someone like you this closely. And even if time changes everything around us, there are certain feelings that never really fade — they just learn to live quietly inside the heart.
+
+I do not know how much time is left before our paths become different. Maybe a few months, maybe less, maybe more. But until that final day comes, I will continue cherishing every little moment life still allows me to spend near you.
+
+And wherever life takes you after this… I want you to remember one thing:
+
+You will always have someone silently wishing the best for you.
+
+Someone who will always care about your happiness.
+Someone who will trust you even in your absence.
+Someone who will protect your name, your peace, and your place in his heart for as long as he is alive.
+And someone who will support you, no matter how far life takes you or how much time passes between us.
+
+Not because I expect anything in return.
+But because some connections become too real to ever turn into strangers again.
+
+Maybe destiny changes titles, distances, and stories.
+But it can never erase what someone truly meant to your heart.
+
+And for me…
+you will always remain one of the most beautiful parts of my life.
+
+here...
+
+I truly wish that one day you meet the love of your life… the kind of person you once dreamed about with those shining eyes and that innocent smile.
+
+I hope he loves you gently.
+I hope he treats you with patience, care, and warmth — the way I always tried to.
+Like the precious child your heart still secretly is.
+
+I hope he never takes away your inner child.
+Never becomes the reason your smile fades.
+Never makes you feel alone while standing beside you.
+
+I hope you live the life we used to talk about.
+The peaceful life.
+The happy life.
+The soft mornings, the laughter-filled evenings, the dreams you were scared to say loudly.
+I pray you get all of it.
+
+And whoever is lucky enough to marry you someday…
+I hope he understands what a beautiful soul he was trusted with.
+I hope he protects your heart better than this world ever did.
+
+May God fill your life with happiness, peace, success, and endless blessings.
+May every road ahead of you lead toward light.
+May your eyes always carry that sparkle I fell in love with.
+
+And even if life slowly takes us in different directions…
+somewhere, in some quiet corner of this world, I will always be praying for you.
+
+For your happiness.
+For your success.
+For the smile on your face that once became my favourite thing in this world.
+
+No matter how much time passes, a part of my heart will always silently wish the best for you.</div>
+    <span class="letter-sign">Lots of love,<br>— Your Guddu Guddu Boiii 💌</span>
+  </div>
+</div>
+
+<script>
+/* ──────────────────────────────────
+   FLOATING HEARTS
+────────────────────────────────── */
+(function spawnHearts() {
+  const symbols = ['ðŸŒ¸','ðŸ’•','âœ¨','ðŸŒ·','ðŸ’Œ','❤️','ðŸ«¶'];
+  for (let i = 0; i < 18; i++) {
+    const el = document.createElement('div');
+    el.className = 'heart-float';
+    el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+    el.style.cssText = `
+      left:${Math.random()*100}vw;
+      font-size:${(Math.random()*0.7+0.6)}rem;
+      animation-duration:${(Math.random()*14+12)}s;
+      animation-delay:${(Math.random()*16)}s;
+    `;
+    document.body.appendChild(el);
+  }
+})();
+
+/* ──────────────────────────────────
+   ENVELOPE OPEN
+────────────────────────────────── */
+function openEnvelope() {
+  const wrap = document.getElementById('envelopeWrap');
+  const reveal = document.getElementById('scratchReveal');
+  const cue = document.getElementById('scrollCue');
+
+  wrap.style.transition = 'opacity 0.4s, transform 0.4s';
+  wrap.style.opacity = '0';
+  wrap.style.transform = 'scale(0.9) translateY(-16px)';
+  setTimeout(() => {
+    wrap.style.display = 'none';
+    reveal.style.display = 'flex';
+    initScratchCard();
+    document.querySelector('.intro-subtitle').textContent = '💌 Now scratch the card below…';
+    setTimeout(() => { cue.style.display = 'flex'; }, 2400);
+  }, 400);
+}
+
+/* ──────────────────────────────────
+   SCRATCH CARD
+────────────────────────────────── */
+function initScratchCard() {
+  const canvas = document.getElementById('scratchCanvas');
+  const ctx = canvas.getContext('2d');
+  const SIZE = 280;
+  canvas.width = SIZE;
+  canvas.height = SIZE;
+
+  /* Draw cover */
+  const grad = ctx.createLinearGradient(0, 0, SIZE, SIZE);
+  grad.addColorStop(0, '#C97B8A');
+  grad.addColorStop(0.45, '#D4849A');
+  grad.addColorStop(1, '#A0556A');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, SIZE, SIZE);
+
+  /* Heart pattern */
+  ctx.fillStyle = 'rgba(255,255,255,0.18)';
+  ctx.font = '22px serif';
+  for (let r = 0; r < 7; r++)
+    for (let c = 0; c < 7; c++)
+      ctx.fillText('♥', c * 44 - 10, r * 44 + 28);
+
+  /* Label text */
+  ctx.textAlign = 'center';
+  ctx.fillStyle = 'rgba(255,255,255,0.92)';
+  ctx.font = 'bold 17px serif';
+  ctx.fillText('Scratch here! 🌸', SIZE / 2, SIZE / 2 - 10);
+  ctx.font = '13px serif';
+  ctx.fillStyle = 'rgba(255,255,255,0.68)';
+  ctx.fillText('Something special awaits…', SIZE / 2, SIZE / 2 + 18);
+
+  let isDown = false;
+  let done = false;
+
+  function getXY(e) {
+    const r = canvas.getBoundingClientRect();
+    const sx = canvas.width / r.width;
+    const sy = canvas.height / r.height;
+    const src = e.touches ? e.touches[0] : e;
+    return { x: (src.clientX - r.left) * sx, y: (src.clientY - r.top) * sy };
+  }
+
+  function scratch(e) {
+    e.preventDefault();
+    if (!isDown || done) return;
+    const { x, y } = getXY(e);
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.beginPath();
+    ctx.arc(x, y, 26, 0, Math.PI * 2);
+    ctx.fill();
+    checkComplete();
+  }
+
+  function checkComplete() {
+    if (done) return;
+    const data = ctx.getImageData(0, 0, SIZE, SIZE).data;
+    let cleared = 0;
+    for (let i = 3; i < data.length; i += 4) if (data[i] < 100) cleared++;
+    if (cleared / (SIZE * SIZE) > 0.52) {
+      done = true;
+      canvas.style.transition = 'opacity 0.55s ease';
+      canvas.style.opacity = '0';
+      setTimeout(() => {
+        canvas.style.display = 'none';
+        document.getElementById('scratchHint').style.display = 'none';
+        const msg = document.getElementById('revealedMsg');
+        msg.style.display = 'block';
+      }, 560);
+    }
+  }
+
+  canvas.addEventListener('mousedown',  (e) => { isDown = true; scratch(e); });
+  canvas.addEventListener('mousemove',  scratch);
+  canvas.addEventListener('mouseup',   () => isDown = false);
+  canvas.addEventListener('touchstart', (e) => { isDown = true; scratch(e); }, { passive: false });
+  canvas.addEventListener('touchmove',  scratch, { passive: false });
+  canvas.addEventListener('touchend',  () => isDown = false);
+}
+
+/* ──────────────────────────────────
+   MUSIC PLAYER
+────────────────────────────────── */
+let isPlaying = false;
+const audio = document.getElementById('audio');
+
+function formatTime(s) {
+  if (!s || isNaN(s)) return '0:00';
+  const m = Math.floor(s / 60);
+  const sec = Math.floor(s % 60);
+  return `${m}:${sec.toString().padStart(2,'0')}`;
+}
+
+audio.addEventListener('loadedmetadata', () => {
+  document.getElementById('timeDuration').textContent = formatTime(audio.duration);
+});
+audio.addEventListener('timeupdate', () => {
+  if (audio.duration) {
+    document.getElementById('progressFill').style.width = (audio.currentTime / audio.duration * 100) + '%';
+    document.getElementById('timeCurrent').textContent = formatTime(audio.currentTime);
+  }
+});
+audio.addEventListener('ended', () => {
+  isPlaying = false;
+  document.getElementById('playIcon').textContent = '▶';
+  document.getElementById('musicDisc').classList.remove('spinning');
+  document.getElementById('progressFill').style.width = '0%';
+  document.getElementById('timeCurrent').textContent = '0:00';
+});
+
+function togglePlay() {
+  const disc = document.getElementById('musicDisc');
+  if (isPlaying) {
+    audio.pause();
+    document.getElementById('playIcon').textContent = '▶';
+    disc.classList.remove('spinning');
+    isPlaying = false;
+  } else {
+    audio.play().catch(() => {});
+    document.getElementById('playIcon').textContent = '⏸';
+    disc.classList.add('spinning');
+    isPlaying = true;
+  }
+}
+
+/* ──────────────────────────────────
+   LOVE ITEMS — INTERSECTION OBSERVER
+────────────────────────────────── */
+(function observeLoveItems() {
+  const items = document.querySelectorAll('.love-item');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((entry, idx) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), idx * 80);
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  items.forEach(item => obs.observe(item));
+})();
+
+/* ──────────────────────────────────
+   FINAL CARD FLIP + LETTER
+────────────────────────────────── */
+let cardFlipped = false;
+function flipCard() {
+  const card = document.getElementById('flipCard');
+  if (!cardFlipped) {
+    card.classList.add('flipped');
+    cardFlipped = true;
+  } else {
+    document.getElementById('letterOverlay').classList.add('open');
+  }
+}
+
+function closeLetter() {
+  document.getElementById('letterOverlay').classList.remove('open');
+}
+
+/* Close on backdrop click */
+document.getElementById('letterOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closeLetter();
+});
+</script>
+</body>
+</html>
